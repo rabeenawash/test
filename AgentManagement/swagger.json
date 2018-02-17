@@ -1,0 +1,10 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "AgentManagement",
+    "version" : "1.0.0",
+    "description" : "AgentManagement"
+  },
+  "paths" : { },
+  "basePath" : "/agentmanagement/v1"
+}

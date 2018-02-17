@@ -1,0 +1,222 @@
+---
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "AgentManagment"
+host: "localhost:7080"
+basePath: "/mohap/agentManagement/"
+schemes:
+- "http"
+paths:
+  /agent:
+    get:
+      operationId: "getAgent"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        type: "string"
+      - name: "licenseNo"
+        in: "query"
+        type: "string"
+      - name: "userName"
+        in: "query"
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/Address"
+  /agents:
+    get:
+      operationId: "getAgents"
+      responses:
+        200:
+          description: "The operation was successful."
+          schema:
+            $ref: "#/definitions/DeviceDetails"
+      produces:
+      - "application/json"
+      description: "Retrieve agents"
+definitions:
+  DeviceDetails:
+    type: "object"
+    properties:
+      deviceName:
+        type: "string"
+  Agent:
+    allOf:
+    - $ref: "#/definitions/Address"
+    - $ref: "#/definitions/ContactInfo"
+    - type: "object"
+      properties:
+        storeAccountNo:
+          type: "string"
+        agentRegNo:
+          type: "string"
+        agentName:
+          type: "string"
+  Products:
+    type: "object"
+    properties:
+      item:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+  Address:
+    type: "object"
+    properties:
+      address:
+        type: "string"
+      country:
+        type: "string"
+      city:
+        type: "string"
+      poBox:
+        type: "string"
+  Ingredient:
+    allOf:
+    - $ref: "#/definitions/Substance"
+    - type: "object"
+      properties:
+        isActive:
+          type: "boolean"
+        quantity:
+          type: "number"
+        quantityUnit:
+          type: "string"
+        isMainIngredient:
+          type: "boolean"
+  ProductDetails:
+    type: "object"
+    properties:
+      productRegNo:
+        type: "string"
+      product:
+        type: "string"
+      productName:
+        type: "string"
+      productClass:
+        type: "string"
+      shelfLife:
+        type: "string"
+      packSize:
+        type: "string"
+      months:
+        type: "string"
+      productForm:
+        type: "string"
+      storageConditions:
+        type: "string"
+      storageConditionsText:
+        type: "string"
+      dispensingMode:
+        type: "string"
+      remarks:
+        type: "string"
+      batchNumber:
+        type: "string"
+      productSubForm:
+        type: "string"
+      strength:
+        type: "string"
+      batchManufacturingDate:
+        type: "string"
+        format: "date"
+      batchExpiryDate:
+        type: "string"
+        format: "date"
+      cifUnitPrice:
+        type: "number"
+      ingredients:
+        type: "array"
+        items:
+          $ref: "#/definitions/Ingredient"
+  Substance:
+    type: "object"
+    properties:
+      substanceId:
+        type: "string"
+      substanceName:
+        type: "string"
+      'hsCode ':
+        type: "string"
+      'hsCodeDescription ':
+        type: "string"
+      casNo:
+        type: "string"
+  Product:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      quantity:
+        type: "integer"
+      bonusQuantity:
+        type: "integer"
+      quantityUnit:
+        type: "string"
+      unitPriceOriginalCurrency:
+        type: "number"
+      isNarcotic:
+        type: "boolean"
+      isPsychotropic:
+        type: "boolean"
+      isControlled:
+        type: "boolean"
+      isSemiControlled:
+        type: "boolean"
+      isUnregistered:
+        type: "boolean"
+      productType:
+        type: "string"
+        description: "PRODUCT\n\nRAW_MATERIAL\n\nDEVICE"
+      productDetails:
+        $ref: "#/definitions/ProductDetails"
+      rawMaterialDetails:
+        $ref: "#/definitions/RawMaterialDetails"
+      deviceDetails:
+        $ref: "#/definitions/DeviceDetails"
+  ContactInfo:
+    type: "object"
+    properties:
+      telephone:
+        type: "string"
+      fax:
+        type: "string"
+      email:
+        type: "string"
+      website:
+        type: "string"
+  RawMaterialDetails:
+    allOf:
+    - $ref: "#/definitions/Substance"
+    - type: "object"
+      properties:
+        packSize:
+          type: "string"
+        moiApprovalNo:
+          type: "string"
+        batchNumber:
+          type: "string"
+        batchManufacturingDate:
+          type: "string"
+          format: "date"
+        batchExpiryDate:
+          type: "string"
+          format: "date"
+        isActive:
+          type: "boolean"
+        apiSourceName:
+          type: "string"
+        apiSourceId:
+          type: "string"
+        productRegNo:
+          type: "string"
+        productName:
+          type: "string"
